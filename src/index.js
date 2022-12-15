@@ -3,11 +3,17 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeProvider, unstable_createMuiStrictModeTheme } from '@mui/material/styles';
+import theme from './Theme';
+
+const thisTheme = unstable_createMuiStrictModeTheme(theme);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <ThemeProvider theme={thisTheme}>  
+      <App />
+    </ThemeProvider>
   </React.StrictMode>
 );
 
