@@ -5,6 +5,8 @@ import { IconButton } from '@mui/material';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import RotateLeftIcon from '@mui/icons-material/RotateLeft';
+import beep from './beep.mp3'
+
 
 
 const defaultSession = 25*60; //minutes to seconds
@@ -20,7 +22,15 @@ function App() {
   const [sessionTime,setSessionTime] = useState(defaultSession);
   const [timerOn,setTimerOn] = useState(false);
   const [onBreak,setOnBreak] = useState(false);
+  const [audio,setAudio] = useState(new Audio(beep));
 
+  /**
+   * @param {Empty} - None ; just executes audio file
+   */
+  const playAudio =()=>{
+    audio.currentTime = 0;
+    audio.play();
+  }
 
   /**
    * Function will determine to add or subtract time from session or break states.
@@ -83,6 +93,14 @@ function App() {
     return (`${minutes.toLocaleString('en-us',{minimumIntegerDigits:2,useGrouping:false})}:${seconds.toLocaleString('en-us',{minimumIntegerDigits:2,useGrouping:false})}`)
   }
 
+  /**
+   * 
+   * @param {none} - function checks to see if this is a play or pause action, gets new time/date and then sets a marker 1s in the future.
+   *                 Interval set up to check marker to see if we have passed it, if we do drops display time by a second and then replaces marker with a new one
+   *                 once we reach zero, changes display to opposite of what it is, sets new markers and continues until broken by reset or pause action.
+   * 
+   */
+
   const playPause = () =>{
     let time = new Date().getTime();
     let nextTime = new Date().getTime() + secondInMs;
@@ -92,10 +110,12 @@ function App() {
          if(time > nextTime){
             setDisplay( (prev) => {
               if(prev<=0 && !isOnBreak){
+                playAudio();
                 isOnBreak = true;
                 setOnBreak(true);
                 return breakTime
               } else if (prev<=0 && isOnBreak){
+                playAudio();
                 isOnBreak=false;
                 setOnBreak(false)
                 return sessionTime;
@@ -112,7 +132,12 @@ function App() {
     }
     setTimerOn(!timerOn)
   }
-    
+  
+  /**
+   * 
+   * @param {None} - Calls for a reset on variables to original state
+   * 
+   */
   const reset = () =>{
     clearInterval(timer);
     setTimerOn(false);
@@ -127,7 +152,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Jake's 25 - 5 Clock</h1>
+        <h1>Jake's Clock</h1>
         <div id='app-all'>
         <div className={sessionTime !== display ? (isOnBreak ? 'active' :''): ''}> 
           <Intervals className="running" id='break-label' title='Break Length' changeTime={changeTime} type='break' time={breakTime} formatTime={formatTime}/>
