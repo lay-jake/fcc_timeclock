@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/fcc_timeclock/static/css/main.6360761d.css",
-    "main.js": "/fcc_timeclock/static/js/main.5c54e839.js",
+    "main.js": "/fcc_timeclock/static/js/main.cc5616e5.js",
     "static/js/787.5d8fbe75.chunk.js": "/fcc_timeclock/static/js/787.5d8fbe75.chunk.js",
     "index.html": "/fcc_timeclock/index.html",
     "main.6360761d.css.map": "/fcc_timeclock/static/css/main.6360761d.css.map",
-    "main.5c54e839.js.map": "/fcc_timeclock/static/js/main.5c54e839.js.map",
+    "main.cc5616e5.js.map": "/fcc_timeclock/static/js/main.cc5616e5.js.map",
     "787.5d8fbe75.chunk.js.map": "/fcc_timeclock/static/js/787.5d8fbe75.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6360761d.css",
-    "static/js/main.5c54e839.js"
+    "static/js/main.cc5616e5.js"
   ]
 }
