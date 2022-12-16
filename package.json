@@ -1,7 +1,7 @@
 {
   "name": "fcc_timeclock",
   "version": "0.1.0",
-  "homepage": "https://lay-jake.github.io/fcc_timeclock"
+  "homepage": "https://lay-jake.github.io/fcc_timeclock",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",

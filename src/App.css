@@ -18,6 +18,7 @@
   flex-wrap: nowrap;
   gap: 5vw;
   align-items: center;
+  z-index: 1;
 }
 
 #break-details{
@@ -27,9 +28,11 @@
 }
 #break-label{
   display: flex;
-  border: 2px solid orange;
+  border: 3px solid orange;
   padding: 10px;
   gap:5px;
+  box-shadow: 0px 0px 25px;
+  transition: 1s color;
 }
 
 #session-details{
@@ -38,9 +41,11 @@
 }
 #session-label{
   display: flex;
-  border: 2px solid orange;
+  border: 3px solid orange;
   padding: 10px;
   gap:5px;
+  box-shadow: 0px 0px 25px;
+  transition: 1s color;
 }
 #in-on{
   align-self: center;
@@ -57,6 +62,8 @@
   gap:5px;
   padding: 20px;
   flex-basis:100%;
+  box-shadow: 0px 0px 40px;
+  transition: 2s color;
 }
 
 #timer-buttons{
@@ -67,4 +74,13 @@
 
 .adjust-button{
   align-self: center;
+}
+.active{
+  color: rgb(164, 218, 164);
+}
+.running{
+  color: rgb(58, 156, 58);
+}
+.paused{
+  color: rgb(245, 245, 81);
 }

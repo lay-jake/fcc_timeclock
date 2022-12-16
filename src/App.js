@@ -11,8 +11,7 @@ const defaultSession = 25*60; //minutes to seconds
 const defaultBreak = 5*60; //minutes to seconds
 const secondInMs = 1000;
 let timer;
-let isOnBreak=false;
-
+let isOnBreak = false;
 
 function App() {
 
@@ -92,22 +91,21 @@ function App() {
          time = new Date().getTime();
          if(time > nextTime){
             setDisplay( (prev) => {
-              if(prev>0){
-                console.log('Counting ' + prev)
-                console.log(isOnBreak);
-                return prev-1
+              if(prev<=0 && !isOnBreak){
+                isOnBreak = true;
+                setOnBreak(true);
+                return breakTime
+              } else if (prev<=0 && isOnBreak){
+                isOnBreak=false;
+                setOnBreak(false)
+                return sessionTime;
               } else {
-                let returnValue;
-                isOnBreak ? console.log('Switch to Session') : console.log('Swtch to break');
-                isOnBreak ?  isOnBreak=false : isOnBreak=true;
-                isOnBreak ?  setOnBreak(false) : setOnBreak(true);
-                isOnBreak ?  returnValue = sessionTime : returnValue = breakTime;
-                return returnValue;
+                return prev-1
               }
               })
               nextTime += secondInMs
               }
-      },1000);
+      },30);
     }
     if(timerOn){
       clearInterval(timer);
@@ -117,11 +115,12 @@ function App() {
     
   const reset = () =>{
     clearInterval(timer);
+    setTimerOn(false);
+    setOnBreak(false);
+    isOnBreak=false;
     setDisplay(defaultSession);
     setBreakTime(defaultBreak);
     setSessionTime(defaultSession);
-    setTimerOn(false);
-    setOnBreak(false);
   }
 
 
@@ -129,22 +128,22 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Jake's 25 - 5 Clock</h1>
-        <div id='app-all'>  
-
-          <Intervals id='break-label' title='Break Length' changeTime={changeTime} type='break' time={breakTime} formatTime={formatTime}/>
-
-          <div id='timer-group'>
-            <h1 id ='time-left'>{formatTime(display)}</h1>
-            <h5 id='in-on'>{onBreak ? 'On' : 'In'}</h5>
-            <h4 id='timer-label'>{onBreak ? 'Break' : 'Session'}</h4>
-            <div id='timer-buttons'>
-              <IconButton id='start_stop' color='warning' onClick={()=> playPause()}>{timerOn ? <PauseCircleOutlineIcon/> : <PlayCircleOutlineIcon/>}</IconButton>
-              <IconButton id='reset' color='warning' onClick={()=> reset()}> <RotateLeftIcon/> </IconButton>
-            </div>
+        <div id='app-all'>
+        <div className={sessionTime !== display ? (isOnBreak ? 'active' :''): ''}> 
+          <Intervals className="running" id='break-label' title='Break Length' changeTime={changeTime} type='break' time={breakTime} formatTime={formatTime}/>
           </div>
-
+            <div className={ sessionTime !== display ? (timerOn ? 'running': 'paused'): ""} id='timer-group'>
+                <h1 id ='time-left'>{formatTime(display)}</h1>
+                <h5 id='in-on'>{isOnBreak ? 'On' : 'In'}</h5>
+                <h4 id='timer-label'>{isOnBreak ? 'Break' : 'Session'}</h4>
+                <div id='timer-buttons'>
+                  <IconButton id='start_stop' color='warning' onClick={()=> playPause()}>{timerOn ? <PauseCircleOutlineIcon/> : <PlayCircleOutlineIcon/>}</IconButton>
+                  <IconButton id='reset' color='warning' onClick={()=> reset()}> <RotateLeftIcon/> </IconButton>
+                </div>
+          </div>
+          <div className={sessionTime !== display ? (isOnBreak ? '' : 'active'): ''}> 
           <Intervals id='session-label' title='Session Length' changeTime={changeTime} type='session' time={sessionTime} formatTime={formatTime}/>
- 
+          </div>
         </div>
       </header>
     </div>
