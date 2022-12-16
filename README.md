@@ -4,8 +4,15 @@
 
 ![image](https://user-images.githubusercontent.com/61438533/208143091-3d35cf36-a7b9-4e4b-a625-bf52aec4a43f.png)
 
-Session will be white if not started/paused - green if counting, yellow if paused.
-Session or Break timer will be greenish if on that specific time, white if not.
+**Session will be white if not started/paused - green if counting, yellow if paused.**
+
+**Session or Break timer will be greenish if on that specific time, white if not.**
+
+---------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------
+
 
 Application built using the following user stories:
 
